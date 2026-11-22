@@ -75,7 +75,7 @@ $asuntos = [
     'Requerimiento de reparación de equipos electromédicos',
 ];
 
-$estados  = ['recibido', 'recibido', 'en_proceso', 'en_proceso', 'culminado'];
+$estados  = ['recibido', 'recibido', 'en_proceso', 'en_proceso'];
 $tipos    = ['entrada', 'entrada', 'salida'];
 
 $ins = $pdo->prepare("

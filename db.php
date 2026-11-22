@@ -50,7 +50,7 @@ function _crear_esquema(PDO $pdo): void {
             asunto              TEXT    NOT NULL,
             observaciones       TEXT,
             estado              TEXT    NOT NULL DEFAULT 'recibido'
-                                    CHECK (estado IN ('recibido','en_proceso','culminado')),
+                                    CHECK (estado IN ('recibido','en_proceso')),
             eliminado           INTEGER NOT NULL DEFAULT 0
         );
 

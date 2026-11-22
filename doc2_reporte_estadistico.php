@@ -31,7 +31,8 @@ fila_kpis($pdf, $y, 18, [
 // Tabla x año
 seccion($pdf, 'Correspondencia por Año', 10);
 
-$aw = [30, 32, 32, 32, 32, 27];
+//$aw = [30, 32, 32, 32, 32, 27];
+$aw = [40, 48, 48, 49];
 cabecera_tabla($pdf, $aw, ['Año', 'Total', 'Entradas', 'Salidas']);
 
 if ($d['por_anio']) {
@@ -40,9 +41,7 @@ if ($d['por_anio']) {
         $pdf->Cell($aw[0], 7, $fila['anio'],           1, 0, 'C');
         $pdf->Cell($aw[1], 7, n0($fila['total']),      1, 0, 'C');
         $pdf->Cell($aw[2], 7, n0($fila['entradas']),   1, 0, 'C');
-        $pdf->Cell($aw[3], 7, n0($fila['salidas']),    1, 0, 'C');
-        $pdf->Cell($aw[4], 7, n0($fila['culminados']), 1, 0, 'C');
-        $pdf->Cell($aw[5], 7, n1($pct) . '%',          1, 1, 'C');
+        $pdf->Cell($aw[3], 7, n0($fila['salidas']),    1, 1, 'C');
     }
 
     $pdf->SetFillColor(210);
@@ -55,9 +54,7 @@ if ($d['por_anio']) {
     $pdf->Cell($aw[0], 7, 'TOTAL',         1, 0, 'L', true);
     $pdf->Cell($aw[1], 7, n0($d['total']), 1, 0, 'C', true);
     $pdf->Cell($aw[2], 7, n0($tot_e),      1, 0, 'C', true);
-    $pdf->Cell($aw[3], 7, n0($tot_s),      1, 0, 'C', true);
-    $pdf->Cell($aw[4], 7, n0($tot_c),      1, 0, 'C', true);
-    $pdf->Cell($aw[5], 7, n1($pct_t) . '%',1, 1, 'C', true);
+    $pdf->Cell($aw[3], 7, n0($tot_s),      1, 1, 'C', true);
     $pdf->SetFont('helvetica', '', 9);
 } else {
     $pdf->Cell(185, 7, 'Sin registros aún.', 1, 1, 'C');
@@ -89,26 +86,25 @@ if ($d['por_tipo']) {
 $pdf->SetY($yg + 96);
 seccion($pdf, 'Distribución por Estado', 2);
 
-$sw = [70, 70, 45];
-cabecera_tabla($pdf, $sw, ['Estado', 'Cantidad', '% del Total']);
+$sw = [100, 85];
+//$sw = [70, 70, 45];
+cabecera_tabla($pdf, $sw, ['Estado', 'Cantidad']);
 
 if ($d['por_estado']) {
     foreach ($d['por_estado'] as $fila) {
         if ($pdf->GetY() > 240) {
             $pdf->AddPage();
-            cabecera_tabla($pdf, $sw, ['Estado', 'Cantidad', '% del Total']);
+            cabecera_tabla($pdf, $sw, ['Estado', 'Cantidad']);
         }
         $pct = $d['total'] > 0 ? $fila['total'] / $d['total'] * 100 : 0;
         $label = match($fila['estado']) {
             'recibido'   => 'Recibido',
             'en_proceso' => 'En Proceso',
-            'culminado'  => 'Culminado',
             default      => $fila['estado'],
         };
         //$pdf->SetDrawColor(0);
         $pdf->Cell($sw[0], 6.5, $label,             1, 0, 'L', false, '', 1);
-        $pdf->Cell($sw[1], 6.5, n0($fila['total']), 1, 0, 'C', false, '', 1);
-        $pdf->Cell($sw[2], 6.5, n1($pct) . '%',     1, 1, 'C', false, '', 1);
+        $pdf->Cell($sw[1], 6.5, n0($fila['total']), 1, 1, 'C', false, '', 1);
     }
 } else {
     $pdf->Cell(185, 7, 'Sin registros aún.', 1, 1, 'C');
