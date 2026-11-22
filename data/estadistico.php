@@ -9,8 +9,7 @@ function datos_estadistico(): array
         "SELECT anio,
                 COUNT(*) AS total,
                 SUM(CASE WHEN tipo = 'entrada'  THEN 1 ELSE 0 END) AS entradas,
-                SUM(CASE WHEN tipo = 'salida'   THEN 1 ELSE 0 END) AS salidas,
-                SUM(CASE WHEN estado = 'culminado' THEN 1 ELSE 0 END) AS culminados
+                SUM(CASE WHEN tipo = 'salida'   THEN 1 ELSE 0 END) AS salidas
          FROM correspondencia
          WHERE eliminado = 0
          GROUP BY anio

@@ -13,7 +13,6 @@ function datos_general(): array
     // X estado
     $recibidos  = (int)scalar("SELECT COUNT(*) FROM correspondencia WHERE eliminado = 0 AND estado = 'recibido'");
     $en_proceso = (int)scalar("SELECT COUNT(*) FROM correspondencia WHERE eliminado = 0 AND estado = 'en_proceso'");
-    $culminados = (int)scalar("SELECT COUNT(*) FROM correspondencia WHERE eliminado = 0 AND estado = 'culminado'");
 
     // X oficina
     $por_oficina = rows(
@@ -38,7 +37,7 @@ function datos_general(): array
 
     return compact(
         'total', 'entradas', 'salidas', 'total_entregas',
-        'recibidos', 'en_proceso', 'culminados',
+        'recibidos', 'en_proceso',
         'por_oficina', 'recientes'
     );
 }

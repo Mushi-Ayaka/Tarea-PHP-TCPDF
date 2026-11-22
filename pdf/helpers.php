@@ -29,7 +29,10 @@ function fila_kpis(TCPDF $pdf, float $y, float $h, array $items, float $margen =
 /** Encabezado negro para tablas. Deja el cursor listo para las filas. */
 function cabecera_tabla(TCPDF $pdf, array $anchos, array $titulos, int $alto = 8): void
 {
+    // Fondo de cabecera (escala de grises)
     $pdf->SetFillColor(0);
+    // Variante con color representativo de registro-memorandos (Azul institucional #0b3d6b):
+    // $pdf->SetFillColor(11, 61, 107);
     $pdf->SetTextColor(255);
     $pdf->SetFont('helvetica', 'B', 9);
     foreach ($titulos as $i => $t) {
@@ -101,8 +104,12 @@ function grafico_barras(
         $alto = ($v / $tope) * $areaH;
         $bx   = $areaX + $i * $ranura + ($ranura - $barraW) / 2;
         $by   = $base - $alto;
+        // Color de barras (escala de grises)
         $pdf->SetFillColor(80);
         $pdf->SetDrawColor(80);
+        // Variante con color representativo de registro-memorandos (Azul institucional #0b3d6b):
+        // $pdf->SetFillColor(11, 61, 107);
+        // $pdf->SetDrawColor(11, 61, 107);
         $pdf->Rect($bx, $by, $barraW, $alto, 'F');
         $pdf->SetTextColor(0);
         $pdf->SetFont('helvetica', 'B', 8);
@@ -119,12 +126,16 @@ function grafico_barras(
     $pdf->Line($areaX, $base,  $areaX + $areaW, $base);
 }
 
-/** Gráfico de torta con leyenda (escala de grises). */
+/** Gráfico de torta con leyenda (escala de grises con opción de paleta). */
 function grafico_torta(
     TCPDF $pdf, float $x, float $y, float $w, float $h,
-    string $titulo, array $etiquetas, array $valores
+    string $titulo, array $etiquetas, array $valores,
+    ?array $paleta = null
 ): void {
-    $grises = [[60,60,60],[110,110,110],[160,160,160],[200,200,200],[230,230,230],[40,40,40],[130,130,130]];
+    // Paleta en escala de grises
+    $grises = $paleta ?? [[60,60,60],[110,110,110],[160,160,160],[200,200,200],[230,230,230],[40,40,40],[130,130,130]];
+    // Variante de colores vivos representativos de registro-memorandos (Azul institucional, Verde, Rojo, Azul medio, Naranja, Púrpura, Gris azulado):
+    // $grises = $paleta ?? [[11, 61, 107], [30, 126, 52], [192, 57, 43], [23, 107, 155], [211, 84, 0], [142, 68, 173], [91, 101, 112]];
 
     $pdf->SetDrawColor(150);
     $pdf->Rect($x, $y, $w, $h);

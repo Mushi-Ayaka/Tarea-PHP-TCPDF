@@ -67,7 +67,7 @@
             Reporte Estadístico
         </a>
         <a class="btn btn-sec" href="seed.php">
-            Cargar datos demo
+            Cargar datos
         </a>
     </div>
 </body>

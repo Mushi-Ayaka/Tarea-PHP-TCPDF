@@ -11,7 +11,10 @@ class PdfBase extends TCPDF
 
     public function Header(): void
     {
+        // Fondo del encabezado (escala de grises: negro)
         $this->SetFillColor(0);
+        // Variante con color de registro-memorandos (Azul institucional #0b3d6b):
+        // $this->SetFillColor(11, 61, 107);
         $this->Rect(0, 0, $this->getPageWidth(), 30, '');
 
         if ($this->logo && file_exists($this->logo)) {

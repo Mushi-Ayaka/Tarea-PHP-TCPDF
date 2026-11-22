@@ -45,8 +45,10 @@ if ($d['por_anio']) {
         $pdf->Cell($aw[5], 7, n1($pct) . '%',          1, 1, 'C');
     }
 
-    // Fila TOTAL
+    // Fila TOTAL (escala de grises)
     $pdf->SetFillColor(210);
+    // Variante de color representativo de registro-memorandos (Azul suave #e8f0f9):
+    // $pdf->SetFillColor(232, 240, 249);
     $pdf->SetFont('helvetica', 'B', 9);
     $tot_e = array_sum(array_column($d['por_anio'], 'entradas'));
     $tot_s = array_sum(array_column($d['por_anio'], 'salidas'));
@@ -78,7 +80,13 @@ if ($anios_val) {
 if ($d['por_tipo']) {
     $tipo_lab = array_map(fn($r) => ucfirst($r['tipo']), $d['por_tipo']);
     $tipo_val = array_map(fn($r) => (int)$r['total'],    $d['por_tipo']);
-    grafico_torta($pdf, 126, $yg, 74, 90, 'Distribución por Tipo', $tipo_lab, $tipo_val);
+
+    // Paleta para gráfico de torta (escala de grises)
+    $paleta_torta = [[60, 60, 60], [110, 110, 110], [160, 160, 160], [200, 200, 200], [230, 230, 230], [40, 40, 40], [130, 130, 130]];
+    // Variante de colores vivos representativos de registro-memorandos (Azul #0b3d6b, Verde #1e7e34, Rojo #c0392b, Azul medio #176b9b, Naranja #d35400, etc.):
+    // $paleta_torta = [[11, 61, 107], [30, 126, 52], [192, 57, 43], [23, 107, 155], [211, 84, 0], [142, 68, 173], [91, 101, 112]];
+
+    grafico_torta($pdf, 126, $yg, 74, 90, 'Distribución por Tipo', $tipo_lab, $tipo_val, $paleta_torta);
 }
 
 // Tabla x estado
