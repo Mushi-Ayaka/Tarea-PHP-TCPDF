@@ -45,7 +45,7 @@ function seccion(TCPDF $pdf, string $texto, float $espacio_arriba = 6): void
 {
     $pdf->Ln($espacio_arriba);
     $pdf->SetFont('helvetica', 'B', 10);
-    $pdf->SetTextColor(255);
+    $pdf->SetTextColor(0);
     $pdf->Cell(185, 7, $texto, 0, 1, 'L');
 }
 

@@ -1,9 +1,5 @@
 <?php
-// ============================================================
-//  config.php — Constantes globales del proyecto
-// ============================================================
 
-// DB propia del proyecto — se crea sola en data/ si no existe
 define('DB_DIR',    __DIR__ . '/data');
 define('DB_PATH',   __DIR__ . '/data/registro-correspondencia.db');
 define('LOGO_PATH', __DIR__ . '/logo.jpg');

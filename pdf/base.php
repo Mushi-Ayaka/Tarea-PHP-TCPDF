@@ -12,7 +12,7 @@ class PdfBase extends TCPDF
     public function Header(): void
     {
         $this->SetFillColor(0);
-        $this->Rect(0, 0, $this->getPageWidth(), 30, 'F');
+        $this->Rect(0, 0, $this->getPageWidth(), 30, '');
 
         if ($this->logo && file_exists($this->logo)) {
             $this->Image($this->logo, 15, 5, 20, 20);
@@ -20,7 +20,7 @@ class PdfBase extends TCPDF
 
         $ox = $this->logo && file_exists($this->logo) ? 40 : 15;
 
-        $this->SetTextColor(255);
+        $this->SetTextColor(0);
         $this->SetFont('helvetica', 'B', 15);
         $this->SetXY($ox, 7);
         $this->Cell(0, 8, $this->titulo, 0, 1, 'L');

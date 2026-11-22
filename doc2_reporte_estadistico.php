@@ -26,14 +26,13 @@ fila_kpis($pdf, $y, 18, [
     ['TOTAL DOCUMENTOS',    n0($d['total'])],
     ['PROMEDIO / AÑO',      n1($d['promedio'])],
     ['MÁXIMO EN UN AÑO',    n0($d['maximo'])],
-    ['% CULMINADOS',        n1($d['pct_culm']) . '%'],
 ]);
 
 // Tabla x año
 seccion($pdf, 'Correspondencia por Año', 10);
 
 $aw = [30, 32, 32, 32, 32, 27];
-cabecera_tabla($pdf, $aw, ['Año', 'Total', 'Entradas', 'Salidas', 'Culminados', '% Culm.']);
+cabecera_tabla($pdf, $aw, ['Año', 'Total', 'Entradas', 'Salidas']);
 
 if ($d['por_anio']) {
     foreach ($d['por_anio'] as $fila) {
@@ -82,7 +81,7 @@ if ($d['por_tipo']) {
     grafico_torta($pdf, 126, $yg, 74, 90, 'Distribución por Tipo', $tipo_lab, $tipo_val);
 }
 
-// ---- Tabla por estado --------------------------------------
+// Tabla x estado
 $pdf->SetY($yg + 96);
 seccion($pdf, 'Distribución por Estado', 2);
 
@@ -102,6 +101,7 @@ if ($d['por_estado']) {
             'culminado'  => 'Culminado',
             default      => $fila['estado'],
         };
+        //$pdf->SetDrawColor(0);
         $pdf->Cell($sw[0], 6.5, $label,             1, 0, 'L', false, '', 1);
         $pdf->Cell($sw[1], 6.5, n0($fila['total']), 1, 0, 'C', false, '', 1);
         $pdf->Cell($sw[2], 6.5, n1($pct) . '%',     1, 1, 'C', false, '', 1);
@@ -110,7 +110,7 @@ if ($d['por_estado']) {
     $pdf->Cell(185, 7, 'Sin registros aún.', 1, 1, 'C');
 }
 
-// ---- Tabla por oficina (top 8) -----------------------------
+// Tabla x oficina (top 8) 
 if ($pdf->GetY() > 200) $pdf->AddPage();
 seccion($pdf, 'Top Oficinas por Volumen');
 
@@ -131,15 +131,14 @@ if ($d['por_oficina']) {
     $pdf->Cell(185, 7, 'Sin registros aún.', 1, 1, 'C');
 }
 
-// ---- Conclusiones ------------------------------------------
+// Conclusiones 
 if ($pdf->GetY() > 210) $pdf->AddPage();
 if ($d['total'] > 0) {
     $mayor_anio = $d['por_anio'][0];
     $html = '<b>Conclusiones</b><br>'
         . 'El año con mayor actividad registrada es <b>' . $mayor_anio['anio'] . '</b> con '
         . n0($mayor_anio['total']) . ' documentos. '
-        . 'El promedio anual es de <b>' . n1($d['promedio']) . '</b> documentos '
-        . 'y el porcentaje general de culminación alcanza <b>' . n1($d['pct_culm']) . '%</b>.';
+        . 'El promedio anual es de <b>' . n1($d['promedio']) . '</b> documentos ';
 } else {
     $html = '<b>Conclusiones</b><br>No hay documentos registrados en el sistema aún.';
 }

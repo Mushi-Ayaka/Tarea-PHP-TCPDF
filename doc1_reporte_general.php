@@ -41,7 +41,6 @@ fila_kpis($pdf, $y, 17, [
 fila_kpis($pdf, $y + 20, 17, [
     ['RECIBIDOS',  $d['recibidos']],
     ['EN PROCESO', $d['en_proceso']],
-    ['CULMINADOS', $d['culminados']],
 ]);
 
 // Tabla x oficina 
