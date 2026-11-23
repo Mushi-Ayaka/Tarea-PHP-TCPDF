@@ -13,7 +13,7 @@ function fmt_fecha(string $f): string {
     return $f ? date('d/m/Y', strtotime($f)) : '—';
 }
 function label_estado(string $e): string {
-    return match($e) { 'recibido' => 'Recibido', 'en_proceso' => 'En proceso', 'culminado' => 'Culminado', default => $e };
+    return match($e) { 'recibido' => 'Recibido', 'en_proceso' => 'En proceso', default => $e };
 }
 function label_tipo(string $t): string {
     return match($t) { 'entrada' => 'Entrada', 'salida' => 'Salida', default => $t };

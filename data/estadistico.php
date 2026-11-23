@@ -51,12 +51,9 @@ function datos_estadistico(): array
 
     $totales_anio = array_column($por_anio, 'total');
     $maximo   = $totales_anio ? max($totales_anio) : 0;
-    $pct_culm = $total > 0
-        ? array_sum(array_column($por_anio, 'culminados')) / $total * 100
-        : 0;
 
     return compact(
         'por_anio', 'por_estado', 'por_tipo', 'por_oficina',
-        'total', 'promedio', 'maximo', 'pct_culm'
+        'total', 'promedio', 'maximo'
     );
 }

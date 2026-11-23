@@ -75,7 +75,7 @@ $asuntos = [
     'Requerimiento de reparación de equipos electromédicos',
 ];
 
-$estados  = ['recibido', 'recibido', 'en_proceso', 'en_proceso'];
+$estados  = ['recibido', 'recibido', 'en_proceso'];
 $tipos    = ['entrada', 'entrada', 'salida'];
 
 $ins = $pdo->prepare("
@@ -129,19 +129,10 @@ foreach ([2023, 2024, 2025, 2026] as $anio) {
             ':asunto' => $asunto,
             ':estado' => $estado,
         ]);
-
-        if ($estado === 'culminado' && rand(0, 1)) {
-            $pdo->prepare("
-                INSERT INTO entregas
-                    (correspondencia_id, fecha_entrega, entregado_a,
-                     entregado_cargo, entregado_oficina, fecha_registro)
-                VALUES (last_insert_rowid(), ?, ?, ?, ?, ?)
-            ")->execute([$frec, $para[0], $para[1], $oficina, $frec . ' 10:00:00']);
-        }
     }
 }
 
 $total_corr = scalar('SELECT COUNT(*) FROM correspondencia');
 $total_ent  = scalar('SELECT COUNT(*) FROM entregas');
-echo "<p>✓ Seed completado: <strong>$total_corr</strong> correspondencias, <strong>$total_ent</strong> entregas.</p>";
+echo "<p>Seed completado: <strong>$total_corr</strong> correspondencias, <strong>$total_ent</strong> entregas.</p>";
 echo "<p><a href='index.php'>← Volver al índice</a></p>";

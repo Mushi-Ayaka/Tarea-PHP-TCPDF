@@ -31,13 +31,11 @@ fila_kpis($pdf, $y, 18, [
 // Tabla x año
 seccion($pdf, 'Correspondencia por Año', 10);
 
-//$aw = [30, 32, 32, 32, 32, 27];
 $aw = [40, 48, 48, 49];
 cabecera_tabla($pdf, $aw, ['Año', 'Total', 'Entradas', 'Salidas']);
 
 if ($d['por_anio']) {
     foreach ($d['por_anio'] as $fila) {
-        $pct = $fila['total'] > 0 ? $fila['culminados'] / $fila['total'] * 100 : 0;
         $pdf->Cell($aw[0], 7, $fila['anio'],           1, 0, 'C');
         $pdf->Cell($aw[1], 7, n0($fila['total']),      1, 0, 'C');
         $pdf->Cell($aw[2], 7, n0($fila['entradas']),   1, 0, 'C');
@@ -50,7 +48,6 @@ if ($d['por_anio']) {
     $tot_e = array_sum(array_column($d['por_anio'], 'entradas'));
     $tot_s = array_sum(array_column($d['por_anio'], 'salidas'));
     $tot_c = array_sum(array_column($d['por_anio'], 'culminados'));
-    $pct_t = $d['total'] > 0 ? $tot_c / $d['total'] * 100 : 0;
     $pdf->Cell($aw[0], 7, 'TOTAL',         1, 0, 'L', true);
     $pdf->Cell($aw[1], 7, n0($d['total']), 1, 0, 'C', true);
     $pdf->Cell($aw[2], 7, n0($tot_e),      1, 0, 'C', true);
@@ -87,7 +84,6 @@ $pdf->SetY($yg + 96);
 seccion($pdf, 'Distribución por Estado', 2);
 
 $sw = [100, 85];
-//$sw = [70, 70, 45];
 cabecera_tabla($pdf, $sw, ['Estado', 'Cantidad']);
 
 if ($d['por_estado']) {
@@ -138,7 +134,7 @@ if ($d['total'] > 0) {
     $html = '<b>Conclusiones</b><br>'
         . 'El año con mayor actividad registrada es <b>' . $mayor_anio['anio'] . '</b> con '
         . n0($mayor_anio['total']) . ' documentos. '
-        . 'El promedio anual es de <b>' . n1($d['promedio']) . '</b> documentos ';
+        . 'El promedio anual es de <b>' . n1($d['promedio']) . '</b> documentos. ';
 } else {
     $html = '<b>Conclusiones</b><br>No hay documentos registrados en el sistema aún.';
 }
